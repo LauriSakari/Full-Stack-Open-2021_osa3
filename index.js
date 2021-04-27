@@ -1,12 +1,11 @@
-const { request } = require('express')
+
 const express = require('express')
-const morgan = require('morgan')
-const cors = require('cors')
-
 const app = express()
+const cors = require('cors')
+const morgan = require('morgan')
 
+app.use(express.static('build'))
 app.use(cors())
-
 app.use(express.json())
 
 morgan.token('tiedot', (req, res) => {
