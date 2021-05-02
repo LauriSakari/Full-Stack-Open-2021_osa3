@@ -6,7 +6,12 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+
+    "build:ui": "rmdir /s /q build && cd ..\\Full-Stack-Open-2020\\osa2\\puhelinluettelo && npm run build --prod && xcopy /s /e build C:\\Users\\lauri\\Full-Stack-Open-2021_osa3\\build",
+    "deploy": "git push heroku main",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",    
+    "logs:prod": "heroku logs --tail"
   },
   "author": "Lauri",
   "license": "MIT",
