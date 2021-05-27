@@ -1,6 +1,7 @@
-
+require('dotenv').config()
 const express = require('express')
 const app = express()
+const Person = require('./models/person')
 const cors = require('cors')
 const morgan = require('morgan')
 
@@ -45,8 +46,11 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-    res.json(persons)
+    Person.find({}).then(persons => {
+        res.json(persons)
+    })
 })
+
 
 app.get('/api/persons/:id', (req, res) =>   {
     const id = Number(req.params.id)
@@ -69,29 +73,33 @@ const generateId = () => {
 app.post('/api/persons', (req, res) => {
     
     const body = req.body
-    const names = persons.map(p => p.name.toLowerCase())
-    const nameToCompare = body.name.toLowerCase()
+    //NIMIEN VERTAILU
+    // const names = persons.map(p => p.name.toLowerCase())
+    // const nameToCompare = body.name.toLowerCase()
 
     
     if (!body.name || !body.number)  {
         return res.status(400).json({
             error: 'content missing'
         })
-    } else if (names.includes(nameToCompare) ){
-        return res.status(400).json({
-            error: 'name must be unique'
-        })
     }
+    //SAMA NIMI ERROR
+    // } else if (names.includes(nameToCompare) ){
+    //     return res.status(400).json({
+    //         error: 'name must be unique'
+    //     })
+    // }
 
-    const person = {
+    const person = new Person({
         name: body.name,
         number: body.number,
-        id: generateId()
-    }
+    })
 
-    persons = persons.concat(person)
-  
-    res.json(person)
+    // PERSONS LISTAAN LISAYS
+    // persons = persons.concat(person)
+    person.save().then(savedPerson => {
+        res.json(savedPerson)
+    })
   })
 
 app.delete('/api/persons/:id', (req, res) => {
@@ -102,7 +110,7 @@ app.delete('/api/persons/:id', (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
 console.log(`Server running on port ${PORT}`)
 })
