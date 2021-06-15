@@ -7,7 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rmdir /s /q build && cd ..\\Full-Stack-Open-2020\\osa2\\puhelinluettelo && npm run build --prod && xcopy /s /e build C:\\Users\\lauri\\Full-Stack-Open-2021_osa3\\build",
+    "build:ui": "rmdir /s /q build && cd ..\\Full-Stack-Open-2020\\osa3\\puhelinluettelo && npm run build --prod && xcopy /s /e build C:\\Users\\lauri\\Full-Stack-Open-2021_osa3\\build",
     "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail"
@@ -19,6 +19,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.12.8",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
