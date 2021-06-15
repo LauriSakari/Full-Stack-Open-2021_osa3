@@ -42,13 +42,6 @@ app.get('/api/persons/:id', (request, response, next) =>   {
     .catch(error => next(error))
 })
 
-// const generateId = () => {
-//   const maxId = persons.length > 0
-//     ? Math.max(...persons.map(p => p.id))
-//     : 0
-//   return maxId + 5 + Math.floor(Math.random() * 20)
-// }
-
 app.post('/api/persons', (request, response, next) => {
 
   const body = request.body
@@ -105,14 +98,13 @@ const errorHandler = (error, request, response, next) => {
 
   next(error)
 }
-// tämä tulee kaikkien muiden middlewarejen rekisteröinnin jälkeen!
+
 app.use(errorHandler)
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
 
-// olemattomien osoitteiden käsittely
 app.use(unknownEndpoint)
 
 const PORT = process.env.PORT
